@@ -6,5 +6,6 @@ declare namespace App {
 	// interface PageData {}
 	// interface Error {}
 	// interface Platform {}
-	export type Entry = { type: 'buy in' | 'cash out'; name: string; amount: number };
 }
+
+type Entry = { type: 'buy in' | 'cash out'; name: string; amount: number };

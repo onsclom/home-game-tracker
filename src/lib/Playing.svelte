@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { ledger } from './stores';
-	import type { Entry } from './types';
+	import type { Entry } from '$lib/types';
+	import { ledger } from '$lib/stores';
 
-	$: totalOnTable = computeTableAmount($ledger);
+	$: totalOnTable = computeTableSum($ledger);
 
-	function computeTableAmount(ledger: Entry[]) {
-		let sum = 0;
-		ledger.forEach((entry) => {
-			sum += entry.amount * (entry.type == 'buy in' ? 1 : -1);
-		});
-		return sum;
+	function computeTableSum(ledger: Entry[]) {
+		return ledger.reduce(
+			(sum, entry) => sum + (entry.type == 'buy in' ? entry.amount : -entry.amount),
+			0
+		);
 	}
+	let test: Test = 'test';
 </script>
 
 <p><b>${totalOnTable}</b> <span>currently on table</span></p>
