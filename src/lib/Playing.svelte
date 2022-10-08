@@ -1,8 +1,9 @@
 <script lang="ts">
-	import type { Entry } from '$lib/types';
+	import AdminModal from './AdminModal.svelte';
 	import { ledger } from '$lib/stores';
 
 	$: totalOnTable = computeTableSum($ledger);
+	let showAdminModal = false;
 
 	function computeTableSum(ledger: Entry[]) {
 		return ledger.reduce(
@@ -10,14 +11,17 @@
 			0
 		);
 	}
-	let test: Test = 'test';
 </script>
 
-<p><b>${totalOnTable}</b> <span>currently on table</span></p>
+<AdminModal bind:visible={showAdminModal} />
+
+<p><b>${parseFloat(totalOnTable.toFixed(2))}</b> <span>currently on table</span></p>
 
 <div>
 	<button>add buy in</button>
 	<button>add cash out</button>
+	<button on:click={() => (showAdminModal = true)}>admin mode</button>
+	<button>download as csv</button>
 </div>
 
 <ul id="history">
@@ -25,7 +29,6 @@
 		<li>{event.name} had a {event.type} for ${event.amount}</li>
 	{/each}
 </ul>
-<button>see results</button>
 
 <style>
 </style>
