@@ -1,8 +1,10 @@
 <script lang="ts">
+	import BuyInModal from './BuyInModal.svelte';
 	import AdminModal from './AdminModal.svelte';
 	import { ledger } from '$lib/stores';
 
 	$: totalOnTable = computeTableSum($ledger);
+	let showBuyInModal = false;
 	let showAdminModal = false;
 
 	function computeTableSum(ledger: Entry[]) {
@@ -13,15 +15,15 @@
 	}
 </script>
 
+<BuyInModal bind:visible={showBuyInModal} />
 <AdminModal bind:visible={showAdminModal} />
 
 <p><b>${parseFloat(totalOnTable.toFixed(2))}</b> <span>currently on table</span></p>
 
 <div>
-	<button>add buy in</button>
+	<button on:click={() => (showBuyInModal = true)}>add buy in</button>
 	<button>add cash out</button>
 	<button on:click={() => (showAdminModal = true)}>admin mode</button>
-	<button>download as csv</button>
 </div>
 
 <ul id="history">
