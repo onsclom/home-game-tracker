@@ -12,10 +12,14 @@
 </script>
 
 <form on:submit|preventDefault={startSession}>
-	<label for="player-names-textarea">player names (seperated by new lines):</label>
-	<textarea bind:value={nameText} id="player-names-textarea" />
-	<label for="starting-buyin-input">starting buy in:</label>
-	<input bind:value={startBuyin} id="starting-buyin-input" inputmode="decimal" />
+	<div>
+		<label for="player-names-textarea">player names (seperated by new lines):</label>
+		<textarea bind:value={nameText} id="player-names-textarea" />
+	</div>
+	<div>
+		<label for="starting-buyin-input">starting buy in:</label>
+		<input bind:value={startBuyin} id="starting-buyin-input" inputmode="decimal" />
+	</div>
 	<input type="submit" value="start session" />
 </form>
 

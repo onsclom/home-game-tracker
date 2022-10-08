@@ -6,8 +6,13 @@
 	let states = [Initial, Playing];
 </script>
 
-<h1>poker buy in and cash out tracker</h1>
-<svelte:component this={states[$state]} />
+<main>
+	<svelte:component this={states[$state]} />
+</main>
 
 <style>
+	main {
+		max-width: 40em;
+		margin: auto;
+	}
 </style>
