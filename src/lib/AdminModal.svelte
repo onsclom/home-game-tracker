@@ -1,14 +1,23 @@
 <script lang="ts">
-	import { ledger } from '$lib/stores';
+	import { ledger, state } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
 	let adminJSON = JSON.stringify($ledger, null, 2);
+	ledger.subscribe((value) => {
+		adminJSON = JSON.stringify(value, null, 2);
+	});
 
 	function updateFromAdmin() {
 		navigator.clipboard.writeText(adminJSON);
 		$ledger = JSON.parse(adminJSON);
 		visible = false;
+	}
+
+	function reset() {
+		$ledger = [];
+		visible = false;
+		$state = 0;
 	}
 </script>
 
