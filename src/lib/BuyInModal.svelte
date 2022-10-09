@@ -4,7 +4,7 @@
 
 	export let visible = false;
 	let state: 'choosing' | 'existing' | 'new' = 'choosing';
-	let people = [...new Set($ledger.map((entry) => entry.name))];
+	$: people = [...new Set($ledger.map((entry) => entry.name))];
 	let selected: string = '';
 	let amount: number = 0;
 
