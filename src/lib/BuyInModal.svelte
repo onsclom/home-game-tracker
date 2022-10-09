@@ -48,7 +48,7 @@
 				<label for="existingBuyinAmount">buy in amount:</label>
 				<input inputmode="decimal" id="existingBuyinAmount" bind:value={amount} />
 			</div>
-			<input disabled={!amount || !selected} type="submit" value="I have venmo'd austin!" />
+			<input disabled={!amount || !selected} type="submit" value="enter" />
 		</form>
 	{:else if state == 'new'}
 		<form on:submit|preventDefault={processBuyIn}>
@@ -60,7 +60,7 @@
 				<label for="existingBuyinAmount">buy in amount:</label>
 				<input inputmode="decimal" id="existingBuyinAmount" bind:value={amount} />
 			</div>
-			<input disabled={!amount || !selected} type="submit" value="I have venmo'd austin!" />
+			<input disabled={!amount || !selected} type="submit" value="enter" />
 		</form>
 	{/if}
 </Modal>
