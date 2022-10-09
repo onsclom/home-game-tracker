@@ -22,12 +22,12 @@
 </script>
 
 <Modal bind:visible>
-	<p>if you are not austin then pppoof please</p>
 	<form on:submit|preventDefault={updateFromAdmin}>
 		<textarea bind:value={adminJSON} />
 		<input type="submit" value="update" />
 		<form />
 	</form>
+	<button on:click={reset}>reset all</button>
 </Modal>
 
 <style>
