@@ -8,7 +8,10 @@
 	let amount: number = 0;
 
 	function processCashOut() {
-		$ledger = [...$ledger, { type: 'cash out', amount: +amount, name: selected }];
+		$ledger = [
+			...$ledger,
+			{ type: 'cash out', amount: +amount, name: selected, timestamp: new Date() }
+		];
 		visible = false;
 	}
 

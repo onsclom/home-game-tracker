@@ -6,7 +6,7 @@
 	function startSession() {
 		$players = nameText.split('\n');
 		startBuyin = +startBuyin;
-		$ledger = $players.map((player) => ({ type: 'buy in', name: player, amount: startBuyin }));
+		$ledger = $players.map((player) => ({ type: 'buy in', name: player, amount: startBuyin, timestamp: new Date() }));
 		$state += 1;
 	}
 </script>

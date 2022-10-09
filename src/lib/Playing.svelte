@@ -28,14 +28,40 @@
 	<button on:click={() => (showCashOutModal = true)}>add cash out</button>
 	<button on:click={() => (showAdminModal = true)}>admin mode</button>
 </div>
-
+<br />
 <div id="history">
-	{#each $ledger as event}
-		<div>
-			<p><b>{event.name}</b> did a <b>{event.type}</b> for <b>${event.amount}</b></p>
-		</div>
-	{/each}
+	<div class="event-holder">
+		{#each $ledger as event}
+			<div>
+				<p>
+					<b>{event.name}</b> did a <b class={event.type.split(' ')[0]}>{event.type}</b> for
+					<b>${event.amount} </b>
+					<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
+				</p>
+			</div>
+		{/each}
+	</div>
 </div>
 
 <style>
+	.buy {
+		color: #a00;
+	}
+
+	.cash {
+		color: #0a0;
+	}
+
+	.event-holder {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	div {
+		margin: 0;
+	}
+
+	p {
+		margin: 0.25rem;
+	}
 </style>

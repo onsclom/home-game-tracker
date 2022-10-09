@@ -9,7 +9,10 @@
 	let amount: number = 0;
 
 	function processBuyIn() {
-		$ledger = [...$ledger, { type: 'buy in', amount: +amount, name: selected }];
+		$ledger = [
+			...$ledger,
+			{ type: 'buy in', amount: +amount, name: selected, timestamp: new Date() }
+		];
 		visible = false;
 	}
 

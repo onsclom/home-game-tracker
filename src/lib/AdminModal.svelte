@@ -22,10 +22,6 @@
 </Modal>
 
 <style>
-	div {
-		margin: 1rem 0;
-	}
-
 	textarea {
 		width: 100%;
 		height: 10rem;

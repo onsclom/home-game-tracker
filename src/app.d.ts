@@ -8,4 +8,4 @@ declare namespace App {
 	// interface Platform {}
 }
 
-type Entry = { type: 'buy in' | 'cash out'; name: string; amount: number };
+type Entry = { type: 'buy in' | 'cash out'; name: string; amount: number; timestamp: Date };
