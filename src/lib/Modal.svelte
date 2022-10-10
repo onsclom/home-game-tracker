@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	export let visible = false;
 
 	function hide() {
@@ -15,7 +16,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 {#if visible}
-	<div class="background" on:click={hide}>
+	<div class="background" on:click={hide} transition:fade={{ duration: 100 }}>
 		<div class="inner" on:click|stopPropagation>
 			<button on:click={hide}>exit</button>
 			<div class="content">
