@@ -1,8 +1,8 @@
 <script lang="ts">
-	import BuyInModal from './BuyInModal.svelte';
-	import AdminModal from './AdminModal.svelte';
+	import BuyInModal from '$lib/BuyInModal.svelte';
+	import AdminModal from '$lib/AdminModal.svelte';
+	import CashOutModal from '$lib/CashOutModal.svelte';
 	import { ledger } from '$lib/stores';
-	import CashOutModal from './CashOutModal.svelte';
 
 	$: totalOnTable = computeTableSum($ledger);
 	let showBuyInModal = false;
@@ -55,10 +55,6 @@
 	.event-holder {
 		display: flex;
 		flex-direction: column-reverse;
-	}
-
-	div {
-		margin: 0;
 	}
 
 	p {
