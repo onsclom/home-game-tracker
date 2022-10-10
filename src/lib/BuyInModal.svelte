@@ -3,6 +3,7 @@
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
+
 	let state: 'choosing' | 'existing' | 'new' = 'choosing';
 	$: people = [...new Set($ledger.map((entry) => entry.name))];
 	let selected: string = '';
@@ -11,7 +12,7 @@
 	function processBuyIn() {
 		$ledger = [
 			...$ledger,
-			{ type: 'buy in', amount: +amount, name: selected, timestamp: new Date() }
+			{ type: 'buy in', amount: amount, name: selected, timestamp: new Date() }
 		];
 		visible = false;
 	}
@@ -19,7 +20,6 @@
 	$: visibleChanged(visible);
 
 	function visibleChanged(visible: boolean) {
-		if (visible) return;
 		state = 'choosing';
 		selected = '';
 		amount = 0;
@@ -46,7 +46,7 @@
 			</div>
 			<div>
 				<label for="existingBuyinAmount">buy in amount:</label>
-				<input inputmode="decimal" id="existingBuyinAmount" bind:value={amount} />
+				<input type="number" inputmode="decimal" id="existingBuyinAmount" bind:value={amount} />
 			</div>
 			<input disabled={!amount || !selected} type="submit" value="enter" />
 		</form>
@@ -57,8 +57,8 @@
 				<input bind:value={selected} />
 			</div>
 			<div>
-				<label for="existingBuyinAmount">buy in amount:</label>
-				<input inputmode="decimal" id="existingBuyinAmount" bind:value={amount} />
+				<label for="newBuyinAmount">buy in amount:</label>
+				<input type="number" inputmode="decimal" id="newBuyinAmount" bind:value={amount} />
 			</div>
 			<input disabled={!amount || !selected} type="submit" value="enter" />
 		</form>
