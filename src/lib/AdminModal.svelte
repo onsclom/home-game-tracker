@@ -24,15 +24,22 @@
 <Modal bind:visible>
 	<form on:submit|preventDefault={updateFromAdmin}>
 		<textarea bind:value={adminJSON} />
-		<input type="submit" value="update" />
+		<div>
+			<input type="submit" value="update" />
+		</div>
 		<form />
 	</form>
-	<button on:click={reset}>reset all</button>
+	<div>
+		<button on:click={reset}>reset all</button>
+	</div>
 </Modal>
 
 <style>
 	textarea {
 		width: 100%;
 		height: 10rem;
+	}
+	div {
+		margin: 1rem 0;
 	}
 </style>
