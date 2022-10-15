@@ -6,13 +6,4 @@
 	let states = [Initial, Playing];
 </script>
 
-<main>
-	<svelte:component this={states[$state]} />
-</main>
-
-<style>
-	main {
-		max-width: 40em;
-		margin: auto;
-	}
-</style>
+<svelte:component this={states[$state]} />

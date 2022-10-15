@@ -26,12 +26,10 @@
 		<textarea bind:value={adminJSON} />
 		<div>
 			<input type="submit" value="update" />
+			<button on:click={reset}>reset all</button>
 		</div>
 		<form />
 	</form>
-	<div>
-		<button on:click={reset}>reset all</button>
-	</div>
 </Modal>
 
 <style>

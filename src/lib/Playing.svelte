@@ -1,4 +1,8 @@
 <script lang="ts">
+	import CurrentlyPlaying from './CurrentlyPlaying.svelte';
+
+	import History from './History.svelte';
+
 	import BuyInModal from '$lib/BuyInModal.svelte';
 	import AdminModal from '$lib/AdminModal.svelte';
 	import CashOutModal from '$lib/CashOutModal.svelte';
@@ -10,10 +14,12 @@
 	let showCashOutModal = false;
 
 	function computeTableSum(ledger: Entry[]) {
-		return ledger.reduce(
-			(sum, entry) => sum + (entry.type == 'buy in' ? entry.amount : -entry.amount),
-			0
-		);
+		let sum = 0;
+		ledger.forEach((entry) => {
+			if (entry.type == 'buy in') sum += entry.amount;
+			if (entry.type == 'cash out') sum -= entry.amount;
+		});
+		return sum;
 	}
 </script>
 
@@ -23,24 +29,16 @@
 
 <h2><b>${parseFloat(totalOnTable.toFixed(2))}</b> <span>currently on table</span></h2>
 
-<div>
-	<button on:click={() => (showBuyInModal = true)}>add buy in</button>
-	<button on:click={() => (showCashOutModal = true)}>add cash out</button>
-	<button on:click={() => (showAdminModal = true)}>admin mode</button>
-</div>
-<br />
-<div id="history">
-	<div class="event-holder">
-		{#each $ledger as event}
-			<div>
-				<p>
-					<b>{event.name}</b> did a <b class={event.type.split(' ')[0]}>{event.type}</b> for
-					<b>${event.amount} </b>
-					<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
-				</p>
-			</div>
-		{/each}
+<div class="playing-holder">
+	<div>
+		<History />
+		<div>
+			<button on:click={() => (showBuyInModal = true)}>add buy in</button>
+			<button on:click={() => (showCashOutModal = true)}>add cash out</button>
+			<button on:click={() => (showAdminModal = true)}>admin mode</button>
+		</div>
 	</div>
+	<CurrentlyPlaying />
 </div>
 
 <style>
@@ -54,10 +52,10 @@
 
 	.event-holder {
 		display: flex;
-		flex-direction: column-reverse;
+		flex-direction: column;
 	}
 
-	p {
-		margin: 0.25rem;
+	.playing-holder {
+		display: flex;
 	}
 </style>
