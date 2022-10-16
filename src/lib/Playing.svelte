@@ -27,35 +27,40 @@
 <CashOutModal bind:visible={showCashOutModal} />
 <AdminModal bind:visible={showAdminModal} />
 
-<h2><b>${parseFloat(totalOnTable.toFixed(2))}</b> <span>currently on table</span></h2>
-
 <div class="playing-holder">
-	<div>
-		<History />
+	<div class="twitch-chat">
+		<div class="overflow-hidden">
+			<History />
+		</div>
 		<div>
 			<button on:click={() => (showBuyInModal = true)}>add buy in</button>
 			<button on:click={() => (showCashOutModal = true)}>add cash out</button>
 			<button on:click={() => (showAdminModal = true)}>admin mode</button>
 		</div>
 	</div>
+	<h2><b>${parseFloat(totalOnTable.toFixed(2))}</b> <span>on table</span></h2>
 	<CurrentlyPlaying />
 </div>
 
 <style>
-	.buy {
-		color: #a00;
+	.playing-holder {
+		box-sizing: border-box;
+		display: flex;
+		height: 100%;
+		justify-content: space-between;
+		margin: 0 1rem;
 	}
 
-	.cash {
-		color: #0a0;
+	.overflow-hidden {
+		justify-content: end;
+		flex-grow: 1;
+		overflow: scroll;
+		height: 10rem;
 	}
 
-	.event-holder {
+	.twitch-chat {
 		display: flex;
 		flex-direction: column;
-	}
-
-	.playing-holder {
-		display: flex;
+		justify-content: end;
 	}
 </style>

@@ -39,7 +39,7 @@
 </script>
 
 <div>
-	<h2>players with chips:</h2>
+	<h2>players with chips</h2>
 	<div class="player-div">
 		{#each currentlyPlaying as player}
 			<div>
