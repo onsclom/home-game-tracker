@@ -7,7 +7,7 @@
 		<div class="entry">
 			{#if event.type == 'buy in' || event.type == 'cash out'}
 				<b>{event.name}</b> did a <b class={event.type.split(' ')[0]}>{event.type}</b> for
-				<b>${event.amount} </b>
+				<b>${event.amount.toFixed(2)} </b>
 				<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
 			{:else if event.type == 'stand up' || event.type == 'sit down'}
 				<b>{event.name}</b> <b>{event.type}</b>

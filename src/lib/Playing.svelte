@@ -38,7 +38,7 @@
 			<button on:click={() => (showAdminModal = true)}>admin mode</button>
 		</div>
 	</div>
-	<h2><b>${parseFloat(totalOnTable.toFixed(2))}</b> <span>on table</span></h2>
+	<h2><b>${totalOnTable.toFixed(2)}</b> <span>on table</span></h2>
 	<CurrentlyPlaying />
 </div>
 
