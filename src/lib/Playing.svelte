@@ -28,7 +28,7 @@
 <AdminModal bind:visible={showAdminModal} />
 
 <div class="playing-holder">
-	<div class="twitch-chat">
+	<div class="ledger-scroll-view playing-row">
 		<div class="overflow-hidden">
 			<History />
 		</div>
@@ -38,8 +38,10 @@
 			<button on:click={() => (showAdminModal = true)}>admin mode</button>
 		</div>
 	</div>
-	<h2><b>${totalOnTable.toFixed(2)}</b> <span>on table</span></h2>
-	<CurrentlyPlaying />
+	<div class="playing-row">
+		<h2><b>${totalOnTable.toFixed(2)}</b> <span>on table</span></h2>
+		<CurrentlyPlaying />
+	</div>
 </div>
 
 <style>
@@ -48,19 +50,22 @@
 		display: flex;
 		height: 100%;
 		justify-content: space-between;
-		margin: 0 1rem;
 	}
 
 	.overflow-hidden {
 		justify-content: end;
-		flex-grow: 1;
-		overflow: scroll;
-		height: 10rem;
+		overflow: auto;
+		overflow-x: hidden;
 	}
 
-	.twitch-chat {
+	.ledger-scroll-view {
 		display: flex;
 		flex-direction: column;
 		justify-content: end;
+	}
+
+	.playing-row {
+		flex-grow: 1;
+		margin: 1rem;
 	}
 </style>

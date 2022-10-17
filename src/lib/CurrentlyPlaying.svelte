@@ -39,32 +39,29 @@
 </script>
 
 <div>
-	<h2>players with chips</h2>
-	<div class="player-div">
-		{#each currentlyPlaying as player}
-			<div>
-				{player}
-				{#if standingPlayers.includes(player)}
-					<button
-						on:click={() => {
-							sitDown(player);
-						}}>sit down</button
-					>
-				{:else}
-					<button
-						on:click={() => {
-							standUp(player);
-						}}>stand up</button
-					>
-				{/if}
+	{#each currentlyPlaying as player}
+		<div class="player-div">
+			{player}
+			{#if standingPlayers.includes(player)}
 				<button
 					on:click={() => {
-						stacked(player);
-					}}>stacked</button
+						sitDown(player);
+					}}>sit down</button
 				>
-			</div>
-		{/each}
-	</div>
+			{:else}
+				<button
+					on:click={() => {
+						standUp(player);
+					}}>stand up</button
+				>
+			{/if}
+			<button
+				on:click={() => {
+					stacked(player);
+				}}>stacked</button
+			>
+		</div>
+	{/each}
 </div>
 
 <style>

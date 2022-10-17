@@ -26,15 +26,11 @@
 		color: #0a0;
 	}
 
-	.event-holder {
+	/* .event-holder {
 		display: flex;
 		flex-direction: column;
 		justify-content: end;
-	}
-
-	.playing-holder {
-		display: flex;
-	}
+	} */
 
 	.entry {
 		margin: 0.25rem;
