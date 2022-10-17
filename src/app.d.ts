@@ -8,6 +8,6 @@ declare namespace App {
 	// interface Platform {}
 }
 
-type Entry = { type: 'buy in' | 'cash out'; name: string; amount: number; timestamp: Date } |
-							{ type: 'stand up' | 'sit down'; name: string; timestamp: Date } |
-							{ type: 'stacked and left'; name: string; timestamp: Date};
+type Entry =
+	| { type: 'buy in' | 'cash out'; name: string; amount: number; timestamp: Date }
+	| { type: 'stand up' | 'sit down'; name: string; timestamp: Date };
