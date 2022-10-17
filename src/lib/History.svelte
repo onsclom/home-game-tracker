@@ -26,12 +26,6 @@
 		color: #0a0;
 	}
 
-	/* .event-holder {
-		display: flex;
-		flex-direction: column;
-		justify-content: end;
-	} */
-
 	.entry {
 		margin: 0.25rem;
 	}

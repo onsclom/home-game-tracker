@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ledger, state } from '$lib/stores';
+	import { ledger } from '$lib/stores';
 	let nameText = '';
 	let startBuyin = 0;
 
@@ -11,7 +11,6 @@
 			amount: startBuyin,
 			timestamp: new Date()
 		}));
-		$state += 1;
 	}
 </script>
 

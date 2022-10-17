@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ledger, state } from '$lib/stores';
+	import { ledger } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
@@ -17,7 +17,6 @@
 	function reset() {
 		$ledger = [];
 		visible = false;
-		$state = 0;
 	}
 </script>
 
@@ -37,6 +36,7 @@
 		width: 100%;
 		height: 10rem;
 	}
+
 	div {
 		margin: 1rem 0;
 	}
