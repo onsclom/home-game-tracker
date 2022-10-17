@@ -22,7 +22,13 @@
 	</div>
 	<div>
 		<label for="starting-buyin-input">starting buy in:</label>
-		<input type="number" bind:value={startBuyin} id="starting-buyin-input" inputmode="decimal" />
+		<input
+			type="number"
+			bind:value={startBuyin}
+			step=".01"
+			id="starting-buyin-input"
+			inputmode="decimal"
+		/>
 	</div>
 	<input type="submit" value="start session" />
 </form>

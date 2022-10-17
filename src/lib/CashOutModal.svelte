@@ -39,7 +39,7 @@
 		</div>
 		<div>
 			<label for="cashInAmount">cash out amount:</label>
-			<input type="number" inputmode="decimal" id="cashInAmount" bind:value={amount} />
+			<input type="number" inputmode="decimal" step="0.01" id="cashInAmount" bind:value={amount} />
 		</div>
 		<input disabled={!amount || !selected} type="submit" value="enter cash out" />
 	</form>

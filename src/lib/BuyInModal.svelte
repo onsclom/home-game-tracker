@@ -46,7 +46,13 @@
 			</div>
 			<div>
 				<label for="existingBuyinAmount">buy in amount:</label>
-				<input type="number" inputmode="decimal" id="existingBuyinAmount" bind:value={amount} />
+				<input
+					type="number"
+					inputmode="decimal"
+					id="existingBuyinAmount"
+					step="0.01"
+					bind:value={amount}
+				/>
 			</div>
 			<input disabled={!amount || !selected} type="submit" value="enter" />
 		</form>
@@ -58,7 +64,13 @@
 			</div>
 			<div>
 				<label for="newBuyinAmount">buy in amount:</label>
-				<input type="number" inputmode="decimal" id="newBuyinAmount" bind:value={amount} />
+				<input
+					type="number"
+					inputmode="decimal"
+					id="newBuyinAmount"
+					step="0.01"
+					bind:value={amount}
+				/>
 			</div>
 			<input disabled={!amount || !selected} type="submit" value="enter" />
 		</form>
