@@ -6,11 +6,14 @@
 	{#each $ledger as event}
 		<div class="entry">
 			{#if event.type == 'buy in' || event.type == 'cash out'}
-				<b>{event.name}</b> did a <b class={event.type.split(' ')[0]}>{event.type}</b> for
+				<b>{event.name}</b>
+				<b class={event.type.split(' ')[0]}>{event.type == 'buy in' ? 'bought in' : 'cashed out'}</b
+				>
+				for
 				<b>${event.amount.toFixed(2)} </b>
 				<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
 			{:else if event.type == 'stand up' || event.type == 'sit down'}
-				<b>{event.name}</b> <b>{event.type}</b>
+				<b>{event.name}</b> <b>{event.type == 'stand up' ? 'stood up' : 'sat down'}</b>
 				<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
 			{/if}
 		</div>
@@ -19,11 +22,11 @@
 
 <style>
 	.buy {
-		color: #a00;
+		color: #800;
 	}
 
 	.cash {
-		color: #0a0;
+		color: #060;
 	}
 
 	.entry {
