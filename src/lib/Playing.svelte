@@ -4,20 +4,31 @@
 	import BuyInModal from '$lib/BuyInModal.svelte';
 	import AdminModal from '$lib/AdminModal.svelte';
 	import CashOutModal from '$lib/CashOutModal.svelte';
-	import { tableSum } from '$lib/stores';
+	import { tableSum, ledger } from '$lib/stores';
+	import { tick } from 'svelte';
 
 	let showBuyInModal = false;
 	let showAdminModal = false;
 	let showCashOutModal = false;
-</script>
+	let historyHolder: HTMLElement;
 
-<BuyInModal bind:visible={showBuyInModal} />
-<CashOutModal bind:visible={showCashOutModal} />
-<AdminModal bind:visible={showAdminModal} />
+	$: {
+		$ledger;
+		scrollToBottom();
+	}
+
+	async function scrollToBottom() {
+		await tick();
+		if (historyHolder != undefined) {
+			historyHolder.scrollTo(0, historyHolder.scrollHeight);
+		}
+	}
+	let test = 0;
+</script>
 
 <div class="playing-holder">
 	<div class="ledger-scroll-view playing-row">
-		<div class="overflow-hidden">
+		<div class="overflow-hidden" bind:this={historyHolder} id="test">
 			<History />
 		</div>
 		<div>
@@ -31,6 +42,10 @@
 		<CurrentlyPlaying />
 	</div>
 </div>
+
+<BuyInModal bind:visible={showBuyInModal} />
+<CashOutModal bind:visible={showCashOutModal} />
+<AdminModal bind:visible={showAdminModal} />
 
 <style>
 	.playing-holder {
