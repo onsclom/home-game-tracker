@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { ledger } from '$lib/stores';
+	import { ledger, playerNames } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
 
 	let state: 'choosing' | 'existing' | 'new' = 'choosing';
-	$: people = [...new Set($ledger.map((entry) => entry.name))];
 	let selected: string = '';
 	let amount: number = 0;
 
@@ -37,7 +36,7 @@
 			<div>
 				<label for="personSelector">person:</label>
 				<select id="personSelector" bind:value={selected}>
-					{#each people as person}
+					{#each $playerNames as person}
 						<option value={person}>
 							{person}
 						</option>
