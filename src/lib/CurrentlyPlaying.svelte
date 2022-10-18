@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ledger, playersPlaying, playersStanding } from '$lib/stores';
+	import { ledger, playersWithChips, playersSitting } from '$lib/stores';
 
 	function standUp(player: string) {
 		$ledger = [...$ledger, { type: 'stand up', name: player, timestamp: new Date() }];
@@ -15,20 +15,20 @@
 </script>
 
 <div>
-	{#each $playersPlaying as player}
+	{#each $playersWithChips as player}
 		<div class="player-div">
-			{$playersStanding.includes(player) ? '🧍 ' : ''}{player}
-			{#if $playersStanding.includes(player)}
-				<button
-					on:click={() => {
-						sitDown(player);
-					}}>sit</button
-				>
-			{:else}
+			{$playersSitting.includes(player) ? '' : '🧍 '}{player}
+			{#if $playersSitting.includes(player)}
 				<button
 					on:click={() => {
 						standUp(player);
 					}}>stand</button
+				>
+			{:else}
+				<button
+					on:click={() => {
+						sitDown(player);
+					}}>sit</button
 				>
 			{/if}
 			<button

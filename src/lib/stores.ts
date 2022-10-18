@@ -32,7 +32,7 @@ export const tableSum: Readable<number> = derived(ledger, ($ledger) => {
 	return sum;
 });
 
-export const playersPlaying: Readable<string[]> = derived(ledger, ($ledger) => {
+export const playersWithChips: Readable<string[]> = derived(ledger, ($ledger) => {
 	const players: Set<string> = new Set();
 	$ledger.forEach((entry) => {
 		if (entry.type == 'buy in') players.add(entry.name);
@@ -41,14 +41,12 @@ export const playersPlaying: Readable<string[]> = derived(ledger, ($ledger) => {
 	return [...players];
 });
 
-export const playersStanding: Readable<string[]> = derived(
-	[playersPlaying, ledger],
-	([$playersPlaying, $ledger]) => {
-		let standing: string[] = [];
-		$playersPlaying.forEach((player) => {
-			let playerHistory = $ledger.filter((entry) => entry.name == player);
-			if (playerHistory[playerHistory.length - 1].type == 'stand up') standing.push(player);
-		});
-		return standing;
-	}
-);
+export const playersSitting: Readable<string[]> = derived(ledger, ($ledger) => {
+	let playersSitting: Set<string> = new Set();
+	$ledger.forEach((entry) => {
+		if (entry.type == 'buy in' || entry.type == 'sit down') playersSitting.add(entry.name);
+		else if (entry.type == 'cash out' || entry.type == 'stand up')
+			playersSitting.delete(entry.name);
+	});
+	return [...playersSitting];
+});
