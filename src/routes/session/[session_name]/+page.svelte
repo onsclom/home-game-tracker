@@ -4,6 +4,7 @@
 	import BuyInModal from '$lib/BuyInModal.svelte';
 	import AdminModal from '$lib/AdminModal.svelte';
 	import NewPlayerModal from '$lib/NewPlayerModal.svelte';
+	import { fade } from 'svelte/transition';
 	import CashOutModal from '$lib/CashOutModal.svelte';
 	import { page } from '$app/stores';
 	import { sessionData, tableSum } from '$lib/stores';
@@ -53,7 +54,7 @@
 	onMount(() => {
 		const interval = setInterval(() => {
 			time = new Date();
-		}, 1000);
+		}, 500);
 
 		return () => {
 			clearInterval(interval);
@@ -61,27 +62,29 @@
 	});
 </script>
 
-<a href="/" class="text-2xl underline"> Home </a>
-<div class="font-thin italic tracking-widest text-3xl">
-	{time.toLocaleTimeString()}
-</div>
-<div class="playing-holder">
-	<div class="ledger-scroll-view playing-row border">
-		<div class="overflow-hidden" bind:this={historyHolder} id="test">
-			<History />
-		</div>
+<div in:fade={{ delay: 500, duration: 500 }} out:fade={{ duration: 500 }} class="">
+	<a href="/" class="text-2xl underline"> Home </a>
+	<div class="font-thin italic tracking-widest text-3xl">
+		{time.toLocaleTimeString()}
 	</div>
-	<div class="playing-row ledger-scroll-view">
-		<div>
-			<button
-				on:click={() => {
-					showAdminModal = true;
-				}}>admin panel</button
-			>
+	<div class="playing-holder">
+		<div class="ledger-scroll-view playing-row border">
+			<div class="overflow-hidden" bind:this={historyHolder} id="test">
+				<History />
+			</div>
 		</div>
-		<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
-		<div class="overflow-hidden border">
-			<PlayersList {newPlayer} {buyIn} {cashOut} />
+		<div class="playing-row ledger-scroll-view">
+			<div>
+				<button
+					on:click={() => {
+						showAdminModal = true;
+					}}>admin panel</button
+				>
+			</div>
+			<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
+			<div class="overflow-hidden border">
+				<PlayersList {newPlayer} {buyIn} {cashOut} />
+			</div>
 		</div>
 	</div>
 </div>

@@ -3,6 +3,7 @@
 	import { sessionData, sessionNames } from '$lib/stores';
 	import NewPlayers from '$lib/NewPlayers.svelte';
 	import RightArrow from '$lib/RightArrow.svelte';
+	import { fade } from 'svelte/transition';
 	let allPlayers: string[] = [];
 	let startBuyin = 20;
 	let sessionNameInput = '';
@@ -28,7 +29,11 @@
 	}
 </script>
 
-<div class="grid grid-flow-row sm:grid-flow-col justify-between max-w-full min-w-fit">
+<div
+	in:fade={{ delay: 500, duration: 500 }}
+	out:fade={{ duration: 500 }}
+	class="grid grid-flow-row sm:grid-flow-col justify-between max-w-full min-w-fit"
+>
 	<form
 		class="p-5"
 		on:submit|preventDefault={startSession}
