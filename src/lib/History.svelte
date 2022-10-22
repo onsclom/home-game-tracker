@@ -13,7 +13,7 @@
 				<b>${event.amount.toFixed(2)} </b>
 				<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
 			{:else if event.type == 'stand up' || event.type == 'sit down'}
-				<b>{event.name}</b> <b>{event.type == 'stand up' ? 'stood up' : 'sat down'}</b>
+				<b>{event.name}</b> <b>{event.type == 'stand up' ? '🧍' : '🪑'}</b>
 				<span><i>({new Date(event.timestamp).toLocaleTimeString()}</i>)</span>
 			{/if}
 		</div>

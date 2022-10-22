@@ -7,7 +7,7 @@
 	import CashOutModal from '$lib/CashOutModal.svelte';
 	import { page } from '$app/stores';
 	import { sessionData, tableSum } from '$lib/stores';
-	import { tick } from 'svelte';
+	import { onDestroy, tick } from 'svelte';
 	import { browser } from '$app/environment';
 
 	if (browser) {
@@ -46,23 +46,43 @@
 	function newPlayer() {
 		showNewPlayerModal = true;
 	}
+
+	let date: Date = new Date();
+	let interval = setInterval(() => {
+		date = new Date();
+	}, 1000);
+	onDestroy(() => {
+		clearInterval(interval);
+	});
 </script>
 
 <div class="playing-holder">
-	<div class="ledger-scroll-view playing-row border">
-		<div class="overflow-hidden" bind:this={historyHolder} id="test">
+	<div class="ledger-scroll-view playing-row ">
+		<h2>
+			{$sessionData.name} -
+			{date.toLocaleTimeString('en-us', {
+				hour: 'numeric',
+				minute: 'numeric',
+				second: 'numeric',
+				hour12: true
+			})}
+		</h2>
+		<div class="overflow-hidden border" bind:this={historyHolder} id="test">
 			<History />
 		</div>
 	</div>
 	<div class="playing-row ledger-scroll-view">
 		<div>
-			<button
-				on:click={() => {
-					showAdminModal = true;
-				}}>admin panel</button
-			>
+			<h2>
+				<b>${$tableSum.toFixed(2)}</b> <span>on table</span>
+				<button
+					style="float: right;"
+					on:click={() => {
+						showAdminModal = true;
+					}}>admin panel</button
+				>
+			</h2>
 		</div>
-		<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
 		<div class="overflow-hidden border">
 			<PlayersList {newPlayer} {buyIn} {cashOut} />
 		</div>
@@ -80,6 +100,9 @@
 		display: flex;
 		height: 100%;
 		justify-content: space-between;
+		padding: 0 0.5rem;
+
+		/* flex-direction: column; */
 	}
 
 	.overflow-hidden {
@@ -100,6 +123,23 @@
 
 	.playing-row {
 		flex-grow: 1;
-		margin: 1rem;
+		padding: 0.5rem;
+		display: flex;
+		justify-content: space-between;
+		box-sizing: border-box;
+	}
+
+	h2 {
+		margin: 0.2rem 0;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.playing-holder {
+			flex-direction: column;
+		}
+
+		.playing-row {
+			max-height: 50%;
+		}
 	}
 </style>
