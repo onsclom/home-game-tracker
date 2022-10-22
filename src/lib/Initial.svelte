@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { ledger } from '$lib/stores';
 	import NewPlayers from '$lib/NewPlayers.svelte'
-	let nameText = '';
-	let startBuyin = 0;
+	let startBuyin = 20;
 	let allPlayers:string[] = []
 
 	function startSession() {
-		// let players = nameText.split('\n');
 		$ledger = allPlayers.map((player) => ({
 			type: 'buy in',
 			name: player,
@@ -27,9 +25,7 @@
 	}
 }}>
 	<div>
-		<label for="player-names-textarea">player names (seperated by new lines):</label>
-		<textarea bind:value={nameText} id="player-names-textarea" />
-		<NewPlayers bind:allPlayers={allPlayers}/>
+		<NewPlayers bind:allPlayers={allPlayers} bind:startBuyin={startBuyin}/>
 	</div>
 	<div>
 		<label for="starting-buyin-input">starting buy in:</label>
