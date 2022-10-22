@@ -1,5 +1,15 @@
 <script lang="ts">
-	import { sessionData, playersWithChips, playersSitting, playerNames } from '$lib/stores';
+	import PlayerEquation from './PlayerEquation.svelte';
+
+	import {
+		sessionData,
+		playersWithChips,
+		playersSitting,
+		playerNames,
+		playerNets,
+		playerBuyIns,
+		playerCashOuts
+	} from '$lib/stores';
 	export let buyIn: (player: string) => void;
 	export let cashOut: (player: string) => void;
 	export let newPlayer: () => void;
@@ -66,6 +76,7 @@
 				}}>cash out</button
 			>
 		</div>
+		<PlayerEquation {player} />
 	{/each}
 	{#if $playerNames.filter((player) => !$playersWithChips.includes(player)).length > 0}
 		<p>players without chips:</p>
@@ -79,6 +90,7 @@
 				}}>buy in</button
 			>
 		</div>
+		<PlayerEquation {player} />
 	{/each}
 </div>
 

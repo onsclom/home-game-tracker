@@ -25,15 +25,40 @@ export const playerNames: Readable<string[]> = derived(sessionData, ($sessionDat
 	...new Set($sessionData.ledger.map((entry) => entry.name))
 ]);
 
-// export const playerTotals: Readable<{ [key: string]: number }> = derived(ledger, ($ledger) => {
-// 	const totals: { [key: string]: number } = {};
-// 	$ledger.forEach((entry) => {
-// 		if (entry.type == 'buy in') totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
-// 		else if (entry.type == 'cash out')
-// 			totals[entry.name] = (totals[entry.name] || 0) - entry.amount;
-// 	});
-// 	return totals;
-// });
+export const playerNets: Readable<{ [key: string]: number }> = derived(
+	sessionData,
+	($sessionData) => {
+		const totals: { [key: string]: number } = {};
+		$sessionData.ledger.forEach((entry) => {
+			if (entry.type == 'buy in') totals[entry.name] = (totals[entry.name] || 0) - entry.amount;
+			else if (entry.type == 'cash out')
+				totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
+		});
+		return totals;
+	}
+);
+
+export const playerBuyIns: Readable<{ [key: string]: number }> = derived(
+	sessionData,
+	($sessionData) => {
+		const totals: { [key: string]: number } = {};
+		$sessionData.ledger.forEach((entry) => {
+			if (entry.type == 'buy in') totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
+		});
+		return totals;
+	}
+);
+
+export const playerCashOuts: Readable<{ [key: string]: number }> = derived(
+	sessionData,
+	($sessionData) => {
+		const totals: { [key: string]: number } = {};
+		$sessionData.ledger.forEach((entry) => {
+			if (entry.type == 'cash out') totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
+		});
+		return totals;
+	}
+);
 
 export const tableSum: Readable<number> = derived(sessionData, ($sessionData) => {
 	let sum = 0;
