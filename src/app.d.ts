@@ -11,3 +11,9 @@ declare namespace App {
 type Entry =
 	| { type: 'buy in' | 'cash out'; name: string; amount: number; timestamp: Date }
 	| { type: 'stand up' | 'sit down'; name: string; timestamp: Date };
+
+type Session = {
+	name: string;
+	tags: string[];
+	ledger: Entry[];
+};

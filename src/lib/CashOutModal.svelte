@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ledger } from '$lib/stores';
+	import { sessionData } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
@@ -8,10 +8,11 @@
 	let amount: number = 0;
 
 	function processCashOut() {
-		$ledger = [
-			...$ledger,
+		$sessionData.ledger = [
+			...$sessionData.ledger,
 			{ type: 'cash out', amount: amount, name: selectedPlayer, timestamp: new Date() }
 		];
+		$sessionData = $sessionData;
 		visible = false;
 	}
 

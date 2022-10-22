@@ -1,19 +1,28 @@
 <script lang="ts">
-	import CurrentlyPlaying from './CurrentlyPlaying.svelte';
-	import History from './History.svelte';
+	import PlayersList from '$lib/PlayersList.svelte';
+	import History from '$lib/History.svelte';
 	import BuyInModal from '$lib/BuyInModal.svelte';
 	import AdminModal from '$lib/AdminModal.svelte';
+	import NewPlayerModal from '$lib/NewPlayerModal.svelte';
 	import CashOutModal from '$lib/CashOutModal.svelte';
-	import { tableSum, ledger } from '$lib/stores';
+	import { page } from '$app/stores';
+	import { sessionData, tableSum } from '$lib/stores';
 	import { tick } from 'svelte';
+	import { browser } from '$app/environment';
+
+	if (browser) {
+		$sessionData = JSON.parse(localStorage[$page.params.session_name]);
+	}
 
 	let showBuyInModal = false;
 	let showAdminModal = false;
 	let showCashOutModal = false;
+	let showNewPlayerModal = false;
+	let selectedPlayer = '';
 	let historyHolder: HTMLElement;
 
 	$: {
-		$ledger;
+		$sessionData;
 		scrollToBottom();
 	}
 
@@ -23,7 +32,20 @@
 			historyHolder.scrollTo(0, historyHolder.scrollHeight);
 		}
 	}
-	let test = 0;
+
+	function buyIn(player: string) {
+		selectedPlayer = player;
+		showBuyInModal = true;
+	}
+
+	function cashOut(player: string) {
+		selectedPlayer = player;
+		showCashOutModal = true;
+	}
+
+	function newPlayer() {
+		showNewPlayerModal = true;
+	}
 </script>
 
 <div class="playing-holder">
@@ -31,20 +53,21 @@
 		<div class="overflow-hidden" bind:this={historyHolder} id="test">
 			<History />
 		</div>
-		<div>
-			<button on:click={() => (showBuyInModal = true)}>add buy in</button>
-			<button on:click={() => (showCashOutModal = true)}>add cash out</button>
-			<button on:click={() => (showAdminModal = true)}>admin mode</button>
-		</div>
 	</div>
 	<div class="playing-row">
+		<button
+			on:click={() => {
+				showAdminModal = true;
+			}}>admin panel</button
+		>
 		<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
-		<CurrentlyPlaying />
+		<PlayersList {newPlayer} {buyIn} {cashOut} />
 	</div>
 </div>
 
-<BuyInModal bind:visible={showBuyInModal} />
-<CashOutModal bind:visible={showCashOutModal} />
+<BuyInModal {selectedPlayer} bind:visible={showBuyInModal} />
+<CashOutModal {selectedPlayer} bind:visible={showCashOutModal} />
+<NewPlayerModal bind:visible={showNewPlayerModal} />
 <AdminModal bind:visible={showAdminModal} />
 
 <style>

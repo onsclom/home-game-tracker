@@ -1,21 +1,17 @@
 <script lang="ts">
-	import { ledger } from '$lib/stores';
+	import { sessionData } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
-	let adminJSON = JSON.stringify($ledger, null, 2);
-	ledger.subscribe((value) => {
-		adminJSON = JSON.stringify(value, null, 2);
+	let adminJSON = JSON.stringify($sessionData.ledger, null, 2);
+	sessionData.subscribe((session) => {
+		adminJSON = JSON.stringify(session.ledger, null, 2);
 	});
 
 	function updateFromAdmin() {
 		navigator.clipboard.writeText(adminJSON);
-		$ledger = JSON.parse(adminJSON);
-		visible = false;
-	}
-
-	function reset() {
-		$ledger = [];
+		$sessionData.ledger = JSON.parse(adminJSON);
+		$sessionData = $sessionData;
 		visible = false;
 	}
 </script>
@@ -25,7 +21,6 @@
 		<textarea bind:value={adminJSON} />
 		<div>
 			<input type="submit" value="update" />
-			<button on:click={reset}>reset all</button>
 		</div>
 		<form />
 	</form>
