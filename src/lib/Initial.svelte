@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { ledger } from '$lib/stores';
-	import NewPlayers from '$lib/NewPlayers.svelte'
+	import { sessionData } from '$lib/stores';
+	import NewPlayers from '$lib/NewPlayers.svelte';
 	let startBuyin = 20;
-	let allPlayers:string[] = []
+	let allPlayers: string[] = [];
 
 	function startSession() {
-		$ledger = allPlayers.map((player) => ({
+		$sessionData.ledger = allPlayers.map((player) => ({
 			type: 'buy in',
 			name: player,
 			amount: startBuyin,
 			timestamp: new Date()
 		}));
 	}
-
-
 </script>
 
-<form on:submit|preventDefault={startSession} on:keypress={(e) => {
-	if(e.code === 'Enter')
-	{
-		e.preventDefault()
-		e.currentTarget.value
-		return false
-	}
-}}>
+<form
+	on:submit|preventDefault={startSession}
+	on:keypress={(e) => {
+		if (e.code === 'Enter') {
+			e.preventDefault();
+			e.currentTarget.value;
+			return false;
+		}
+	}}
+>
 	<div>
-		<NewPlayers bind:allPlayers={allPlayers} bind:startBuyin={startBuyin}/>
+		<NewPlayers bind:allPlayers bind:startBuyin />
 	</div>
 	<div>
 		<label for="starting-buyin-input">starting buy in:</label>

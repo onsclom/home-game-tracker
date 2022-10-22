@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { ledger } from '$lib/stores';
+	import { sessionData } from '$lib/stores';
 </script>
 
 <div class="event-holder">
-	{#each $ledger as event}
+	{#each $sessionData.ledger as event}
 		<div class="entry">
 			{#if event.type == 'buy in' || event.type == 'cash out'}
 				<b>{event.name}</b>

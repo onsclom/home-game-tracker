@@ -3,7 +3,7 @@
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
-	export let selectedPlayer: string;
+	export let selectedPlayer: string = '';
 	let amount: number = 0;
 
 	function processBuyIn() {
@@ -19,12 +19,17 @@
 
 	function visibleChanged(visible: boolean) {
 		amount = 0;
+		selectedPlayer = '';
 	}
 </script>
 
 <Modal bind:visible>
-	<h2>buy in for {selectedPlayer}</h2>
+	<h2>add new player</h2>
 	<form on:submit|preventDefault={processBuyIn}>
+		<div>
+			<label for="playerName">new player name:</label>
+			<input id="playerName" bind:value={selectedPlayer} />
+		</div>
 		<div>
 			<label for="existingBuyinAmount">buy in amount:</label>
 			<input
@@ -35,7 +40,7 @@
 				bind:value={amount}
 			/>
 		</div>
-		<input disabled={!amount} type="submit" value="enter" />
+		<input disabled={!amount || selectedPlayer == ''} type="submit" value="enter" />
 	</form>
 </Modal>
 

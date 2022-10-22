@@ -1,49 +1,86 @@
 import { browser } from '$app/environment';
 import { derived, writable, type Writable, type Readable } from 'svelte/store';
 
-export const ledger: Writable<Entry[]> = writable(
-	browser && localStorage.ledger ? JSON.parse(localStorage.ledger) : []
+export const sessionData: Writable<Session> = writable({
+	name: '',
+	ledger: [],
+	tags: []
+});
+
+// browser && localStorage.ledger ? JSON.parse(localStorage.ledger) : []
+export const sessionNames: Writable<string[]> = writable(
+	browser && localStorage.sessionNames ? JSON.parse(localStorage.sessionNames) : []
 );
 
 if (browser) {
-	ledger.subscribe((ledger) => (localStorage.ledger = JSON.stringify(ledger)));
+	sessionData.subscribe((session) => {
+		localStorage[session.name] = JSON.stringify(session);
+	});
+	sessionNames.subscribe((names) => {
+		localStorage.sessionNames = JSON.stringify(names);
+	});
 }
 
-export const playerNames: Readable<string[]> = derived(ledger, ($ledger) => [
-	...new Set($ledger.map((entry) => entry.name))
+export const playerNames: Readable<string[]> = derived(sessionData, ($sessionData) => [
+	...new Set($sessionData.ledger.map((entry) => entry.name))
 ]);
 
-export const playerTotals: Readable<{ [key: string]: number }> = derived(ledger, ($ledger) => {
-	const totals: { [key: string]: number } = {};
-	$ledger.forEach((entry) => {
-		if (entry.type == 'buy in') totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
-		else if (entry.type == 'cash out')
-			totals[entry.name] = (totals[entry.name] || 0) - entry.amount;
-	});
-	return totals;
-});
+export const playerNets: Readable<{ [key: string]: number }> = derived(
+	sessionData,
+	($sessionData) => {
+		const totals: { [key: string]: number } = {};
+		$sessionData.ledger.forEach((entry) => {
+			if (entry.type == 'buy in') totals[entry.name] = (totals[entry.name] || 0) - entry.amount;
+			else if (entry.type == 'cash out')
+				totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
+		});
+		return totals;
+	}
+);
 
-export const tableSum: Readable<number> = derived(ledger, ($ledger) => {
+export const playerBuyIns: Readable<{ [key: string]: number }> = derived(
+	sessionData,
+	($sessionData) => {
+		const totals: { [key: string]: number } = {};
+		$sessionData.ledger.forEach((entry) => {
+			if (entry.type == 'buy in') totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
+		});
+		return totals;
+	}
+);
+
+export const playerCashOuts: Readable<{ [key: string]: number }> = derived(
+	sessionData,
+	($sessionData) => {
+		const totals: { [key: string]: number } = {};
+		$sessionData.ledger.forEach((entry) => {
+			if (entry.type == 'cash out') totals[entry.name] = (totals[entry.name] || 0) + entry.amount;
+		});
+		return totals;
+	}
+);
+
+export const tableSum: Readable<number> = derived(sessionData, ($sessionData) => {
 	let sum = 0;
-	$ledger.forEach((entry) => {
+	$sessionData.ledger.forEach((entry) => {
 		if (entry.type == 'buy in') sum += entry.amount;
 		else if (entry.type == 'cash out') sum -= entry.amount;
 	});
 	return sum;
 });
 
-export const playersWithChips: Readable<string[]> = derived(ledger, ($ledger) => {
+export const playersWithChips: Readable<string[]> = derived(sessionData, ($sessionData) => {
 	const players: Set<string> = new Set();
-	$ledger.forEach((entry) => {
+	$sessionData.ledger.forEach((entry) => {
 		if (entry.type == 'buy in') players.add(entry.name);
 		else if (entry.type == 'cash out') players.delete(entry.name);
 	});
 	return [...players];
 });
 
-export const playersSitting: Readable<string[]> = derived(ledger, ($ledger) => {
+export const playersSitting: Readable<string[]> = derived(sessionData, ($sessionData) => {
 	let playersSitting: Set<string> = new Set();
-	$ledger.forEach((entry) => {
+	$sessionData.ledger.forEach((entry) => {
 		if (entry.type == 'buy in' || entry.type == 'sit down') playersSitting.add(entry.name);
 		else if (entry.type == 'cash out' || entry.type == 'stand up')
 			playersSitting.delete(entry.name);

@@ -41,7 +41,7 @@
 		position: relative;
 		margin: auto;
 		padding: 1rem;
-		background-color: white;
+		@apply bg-slate-800;
 	}
 
 	button {

@@ -56,7 +56,7 @@
 	}
 
 	.overflow-hidden {
-		justify-content: end;
+		justify-content: flex-end;
 		overflow: auto;
 		overflow-x: hidden;
 	}
@@ -64,7 +64,7 @@
 	.ledger-scroll-view {
 		display: flex;
 		flex-direction: column;
-		justify-content: end;
+		justify-content: flex-end;
 	}
 
 	.playing-row {
