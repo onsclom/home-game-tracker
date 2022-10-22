@@ -1,15 +1,7 @@
 <script lang="ts">
 	import PlayerEquation from './PlayerEquation.svelte';
 
-	import {
-		sessionData,
-		playersWithChips,
-		playersSitting,
-		playerNames,
-		playerNets,
-		playerBuyIns,
-		playerCashOuts
-	} from '$lib/stores';
+	import { sessionData, playersWithChips, playersSitting, playerNames } from '$lib/stores';
 	export let buyIn: (player: string) => void;
 	export let cashOut: (player: string) => void;
 	export let newPlayer: () => void;
@@ -39,7 +31,7 @@
 	}
 </script>
 
-<div>
+<div class="mainContainer">
 	<button on:click={newPlayer}>add new player</button>
 	{#if $playersWithChips.length > 0}
 		<p>players with chips:</p>
@@ -97,5 +89,9 @@
 <style>
 	.player-div {
 		margin: 0.3rem;
+	}
+
+	.mainContainer {
+		padding: .3rem;
 	}
 </style>

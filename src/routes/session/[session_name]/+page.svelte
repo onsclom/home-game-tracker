@@ -49,19 +49,23 @@
 </script>
 
 <div class="playing-holder">
-	<div class="ledger-scroll-view playing-row">
+	<div class="ledger-scroll-view playing-row border">
 		<div class="overflow-hidden" bind:this={historyHolder} id="test">
 			<History />
 		</div>
 	</div>
-	<div class="playing-row">
-		<button
-			on:click={() => {
-				showAdminModal = true;
-			}}>admin panel</button
-		>
+	<div class="playing-row ledger-scroll-view">
+		<div>
+			<button
+				on:click={() => {
+					showAdminModal = true;
+				}}>admin panel</button
+			>
+		</div>
 		<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
-		<PlayersList {newPlayer} {buyIn} {cashOut} />
+		<div class="overflow-hidden border">
+			<PlayersList {newPlayer} {buyIn} {cashOut} />
+		</div>
 	</div>
 </div>
 
@@ -88,6 +92,10 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: end;
+	}
+
+	.border {
+		border: 2px solid black;
 	}
 
 	.playing-row {
