@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { ledger, playerNames } from '$lib/stores';
+	import { ledger } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
+	export let selectedPlayer: string;
 
-	let selected: string = '';
 	let amount: number = 0;
 
 	function processCashOut() {
 		$ledger = [
 			...$ledger,
-			{ type: 'cash out', amount: amount, name: selected, timestamp: new Date() }
+			{ type: 'cash out', amount: amount, name: selectedPlayer, timestamp: new Date() }
 		];
 		visible = false;
 	}
@@ -18,29 +18,18 @@
 	$: visibleChanged(visible);
 
 	function visibleChanged(visible: boolean) {
-		selected = '';
 		amount = 0;
 	}
 </script>
 
 <Modal bind:visible>
-	<h2>cash out</h2>
+	<h2>cash out for {selectedPlayer}</h2>
 	<form on:submit|preventDefault={processCashOut}>
-		<div>
-			<label for="personSelector">person:</label>
-			<select id="personSelector" bind:value={selected}>
-				{#each $playerNames as person}
-					<option value={person}>
-						{person}
-					</option>
-				{/each}
-			</select>
-		</div>
 		<div>
 			<label for="cashInAmount">cash out amount:</label>
 			<input type="number" inputmode="decimal" step="0.01" id="cashInAmount" bind:value={amount} />
 		</div>
-		<input disabled={!amount || !selected} type="submit" value="enter cash out" />
+		<input disabled={!amount} type="submit" value="enter cash out" />
 	</form>
 </Modal>
 

@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { ledger, playersWithChips, playersSitting } from '$lib/stores';
+	import { ledger, playersWithChips, playersSitting, playerNames } from '$lib/stores';
+	export let buyIn: (player: string) => void;
+	export let cashOut: (player: string) => void;
 
 	function standUp(player: string) {
 		$ledger = [...$ledger, { type: 'stand up', name: player, timestamp: new Date() }];
@@ -15,6 +17,7 @@
 </script>
 
 <div>
+	<p>players with chips:</p>
 	{#each $playersWithChips as player}
 		<div class="player-div">
 			{$playersSitting.includes(player) ? '' : '🧍 '}{player}
@@ -36,7 +39,25 @@
 					stacked(player);
 				}}>stacked</button
 			>
+			<button
+				on:click={() => {
+					buyIn(player);
+				}}>buy in</button
+			>
+			<button
+				on:click={() => {
+					cashOut(player);
+				}}>cash out</button
+			>
 		</div>
+	{/each}
+	<p>players without chips:</p>
+	{#each $playerNames as player}
+		{#if !$playersWithChips.includes(player)}
+			<div>
+				{player}
+			</div>
+		{/if}
 	{/each}
 </div>
 

@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { ledger, playerNames } from '$lib/stores';
+	import { ledger } from '$lib/stores';
 	import Modal from '$lib/Modal.svelte';
 
 	export let visible = false;
-
-	let state: 'choosing' | 'existing' | 'new' = 'choosing';
-	let selected: string = '';
+	export let selectedPlayer: string;
 	let amount: number = 0;
 
 	function processBuyIn() {
 		$ledger = [
 			...$ledger,
-			{ type: 'buy in', amount: amount, name: selected, timestamp: new Date() }
+			{ type: 'buy in', amount: amount, name: selectedPlayer, timestamp: new Date() }
 		];
 		visible = false;
 	}
@@ -19,61 +17,25 @@
 	$: visibleChanged(visible);
 
 	function visibleChanged(visible: boolean) {
-		state = 'choosing';
-		selected = '';
 		amount = 0;
 	}
 </script>
 
 <Modal bind:visible>
-	<h2>buy in</h2>
-	{#if state == 'choosing'}
-		<button on:click={() => (state = 'existing')}>existing player</button>
-		<span>OR</span>
-		<button on:click={() => (state = 'new')}>new player</button>
-	{:else if state == 'existing'}
-		<form on:submit|preventDefault={processBuyIn}>
-			<div>
-				<label for="personSelector">person:</label>
-				<select id="personSelector" bind:value={selected}>
-					{#each $playerNames as person}
-						<option value={person}>
-							{person}
-						</option>
-					{/each}
-				</select>
-			</div>
-			<div>
-				<label for="existingBuyinAmount">buy in amount:</label>
-				<input
-					type="number"
-					inputmode="decimal"
-					id="existingBuyinAmount"
-					step="0.01"
-					bind:value={amount}
-				/>
-			</div>
-			<input disabled={!amount || !selected} type="submit" value="enter" />
-		</form>
-	{:else if state == 'new'}
-		<form on:submit|preventDefault={processBuyIn}>
-			<div>
-				<label for="personSelector">person:</label>
-				<input bind:value={selected} />
-			</div>
-			<div>
-				<label for="newBuyinAmount">buy in amount:</label>
-				<input
-					type="number"
-					inputmode="decimal"
-					id="newBuyinAmount"
-					step="0.01"
-					bind:value={amount}
-				/>
-			</div>
-			<input disabled={!amount || !selected} type="submit" value="enter" />
-		</form>
-	{/if}
+	<h2>buy in for {selectedPlayer}</h2>
+	<form on:submit|preventDefault={processBuyIn}>
+		<div>
+			<label for="existingBuyinAmount">buy in amount:</label>
+			<input
+				type="number"
+				inputmode="decimal"
+				id="existingBuyinAmount"
+				step="0.01"
+				bind:value={amount}
+			/>
+		</div>
+		<input disabled={!amount} type="submit" value="enter" />
+	</form>
 </Modal>
 
 <style>
