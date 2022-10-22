@@ -62,7 +62,7 @@
 	});
 </script>
 
-<div in:fade={{ delay: 500, duration: 500 }} out:fade={{ duration: 500 }} class="">
+<div in:fade={{ delay: 250, duration: 250 }} out:fade={{ duration: 250 }} class="">
 	<a href="/" class="text-2xl underline"> Home </a>
 	<div class="font-thin italic tracking-widest text-3xl">
 		{time.toLocaleTimeString()}

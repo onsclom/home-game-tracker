@@ -30,8 +30,8 @@
 </script>
 
 <div
-	in:fade={{ delay: 500, duration: 500 }}
-	out:fade={{ duration: 500 }}
+	in:fade={{ delay: 250, duration: 250 }}
+	out:fade={{ duration: 250 }}
 	class="grid grid-flow-row sm:grid-flow-col justify-between max-w-full min-w-fit"
 >
 	<form

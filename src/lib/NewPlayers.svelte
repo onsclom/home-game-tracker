@@ -3,7 +3,6 @@
 	import { flip } from 'svelte/animate';
 
 	export let allPlayers: string[];
-	export let playerBuyins: { [key: string]: number };
 </script>
 
 <div class="flex justify-end ">

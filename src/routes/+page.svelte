@@ -5,8 +5,8 @@
 </script>
 
 <main
-	in:fade={{ delay: 500, duration: 500 }}
-	out:fade={{ duration: 500 }}
+	in:fade={{ delay: 250, duration: 250 }}
+	out:fade={{ duration: 250 }}
 	class="p-10  flex flex-col"
 >
 	<h1>home game tracker</h1>
