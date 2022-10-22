@@ -100,7 +100,7 @@
 		display: flex;
 		height: 100%;
 		justify-content: space-between;
-		padding: 0 0.5rem;
+		padding: 0 0.25rem;
 
 		/* flex-direction: column; */
 	}
@@ -123,7 +123,7 @@
 
 	.playing-row {
 		flex-grow: 1;
-		padding: 0.5rem;
+		padding: 0.25rem;
 		display: flex;
 		justify-content: space-between;
 		box-sizing: border-box;

@@ -7,7 +7,6 @@ export const sessionData: Writable<Session> = writable({
 	tags: []
 });
 
-// browser && localStorage.ledger ? JSON.parse(localStorage.ledger) : []
 export const sessionNames: Writable<string[]> = writable(
 	browser && localStorage.sessionNames ? JSON.parse(localStorage.sessionNames) : []
 );

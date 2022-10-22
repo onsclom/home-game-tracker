@@ -10,12 +10,14 @@
 		<a href="/create-session">create new session</a>
 	</p>
 	<div>
-		<label for="sessions">sessions:</label>
-		<ul id="sessions">
+		{#if $sessionNames.length > 0}
+			<label for="sessions">sessions:</label>
 			{#each $sessionNames as sessionName}
 				<li><a href={`/session/${encodeURIComponent(sessionName)}`}>{sessionName}</a></li>
 			{/each}
-		</ul>
+		{:else}
+			<p>you have not had sessions yet. once you do, they will listed here</p>
+		{/if}
 	</div>
 </main>
 
