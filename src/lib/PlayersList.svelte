@@ -32,13 +32,15 @@
 </script>
 
 <div class="mainContainer">
-	<button on:click={newPlayer}>add new player</button>
+	<button on:click={newPlayer}>+ new player</button>
 	{#if $playersWithChips.length > 0}
-		<p>players with chips:</p>
+		<p style="text-align: center;"><b>with chips:</b></p>
 	{/if}
 	{#each $playersWithChips as player}
 		<div class="player-div">
 			{$playersSitting.includes(player) ? '' : '🧍 '}<b>{player}</b>
+			(<PlayerEquation {player} />)
+			<br />
 			{#if $playersSitting.includes(player)}
 				<button
 					on:click={() => {
@@ -68,21 +70,21 @@
 				}}>cash out</button
 			>
 		</div>
-		<PlayerEquation {player} />
 	{/each}
 	{#if $playerNames.filter((player) => !$playersWithChips.includes(player)).length > 0}
-		<p>players without chips:</p>
+		<p style="text-align: center;"><b>without chips:</b></p>
 	{/if}
 	{#each $playerNames.filter((player) => !$playersWithChips.includes(player)) as player}
 		<div class="player-div">
 			<b>{player}</b>
+			(<PlayerEquation {player} />)
+			<br />
 			<button
 				on:click={() => {
 					buyIn(player);
 				}}>buy in</button
 			>
 		</div>
-		<PlayerEquation {player} />
 	{/each}
 </div>
 
@@ -93,5 +95,9 @@
 
 	.mainContainer {
 		padding: 0.3rem;
+	}
+
+	p {
+		margin: 0.3rem;
 	}
 </style>

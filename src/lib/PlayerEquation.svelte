@@ -4,6 +4,8 @@
 	export let player = '';
 </script>
 
-${$playerCashOuts[player] ? $playerCashOuts[player] : 0} - ${$playerBuyIns[player]} = ${$playerNets[
+${$playerCashOuts[player] ? $playerCashOuts[player] : 0} - ${$playerBuyIns[player]} = {$playerNets[
 	player
-]}
+] >= 0
+	? '$'
+	: '-$'}{Math.abs($playerNets[player])}
