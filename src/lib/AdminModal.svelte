@@ -18,9 +18,13 @@
 
 <Modal bind:visible>
 	<form on:submit|preventDefault={updateFromAdmin}>
-		<textarea class="bg-slate-900 " bind:value={adminJSON} />
+		<textarea class="bg-slate-900 border-none outline-none" bind:value={adminJSON} />
 		<div>
-			<input type="submit" value="update" />
+			<button
+			class="bg-transparent hover:bg-slate-300/20 transition-colors text-slate-100 font-semibold  py-3 px-6  hover:border-transparent rounded flex flex-row max-w-fit"
+			>
+				Update
+			</button>
 		</div>
 		<form />
 	</form>

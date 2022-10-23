@@ -26,21 +26,22 @@
 <Modal bind:visible>
 	<h2>add new player</h2>
 	<form on:submit|preventDefault={processBuyIn}>
-		<div>
-			<label for="playerName">new player name:</label>
-			<input id="playerName" bind:value={selectedPlayer} />
+		<div class='input-wrapper'>
+			<input placeholder=" " class='input' id="playerName" bind:value={selectedPlayer} />
+			<label class='input-label bg-slate-800' for="playerName">new player name</label>
 		</div>
-		<div>
-			<label for="existingBuyinAmount">buy in amount:</label>
+		<div class='input-wrapper'>
 			<input
-				type="number"
-				inputmode="decimal"
-				id="existingBuyinAmount"
-				step="0.01"
-				bind:value={amount}
+			class='input'
+			type="number"
+			inputmode="decimal"
+			id="existingBuyinAmount"
+			step="0.01"
+			bind:value={amount}
 			/>
+			<label class='input-label bg-slate-800'for="existingBuyinAmount">buy in amount</label>
 		</div>
-		<input disabled={!amount || selectedPlayer == ''} type="submit" value="enter" />
+		<button class='p-3' disabled={!amount || selectedPlayer == ' '} > Enter </button>
 	</form>
 </Modal>
 

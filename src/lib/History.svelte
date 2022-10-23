@@ -2,7 +2,7 @@
 	import { sessionData } from '$lib/stores';
 </script>
 
-<div class="event-holder">
+<div class="">
 	{#each $sessionData.ledger as event}
 		<div class="entry">
 			{#if event.type == 'buy in' || event.type == 'cash out'}
@@ -21,12 +21,14 @@
 </div>
 
 <style>
+
+
 	.buy {
-		color: #800;
+		@apply text-red-500
 	}
 
 	.cash {
-		color: #060;
+		@apply text-emerald-500
 	}
 
 	.entry {

@@ -58,7 +58,7 @@
 					}
 				}}
 			/>
-			<label class="input-label" for="new-name">New Player</label>
+			<label class="input-label bg-slate-900" for="new-name">New Player</label>
 		</div>
 		<div class="input-wrapper">
 			<input
@@ -70,11 +70,11 @@
 				id="starting-buyin-input"
 				inputmode="decimal"
 			/>
-			<label class="input-label" for="starting-buyin-input">Starting Buy In</label>
+			<label class="input-label bg-slate-900" for="starting-buyin-input">Starting Buy In</label>
 		</div>
 		<div class="input-wrapper">
 			<input placeholder=" " class="input" bind:value={sessionNameInput} id="session-name" />
-			<label class="input-label" for="session-name">Session Name</label>
+			<label class="input-label bg-slate-900" for="session-name">Session Name</label>
 		</div>
 		<button
 			class="bg-transparent hover:bg-slate-300/20 transition-colors text-slate-100 font-semibold  py-3 px-6  hover:border-transparent rounded flex flex-row max-w-fit"

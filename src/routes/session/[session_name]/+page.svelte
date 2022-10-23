@@ -67,13 +67,13 @@
 	<div class="font-thin italic tracking-widest text-3xl">
 		{time.toLocaleTimeString()}
 	</div>
-	<div class="playing-holder">
-		<div class="ledger-scroll-view playing-row border">
-			<div class="overflow-hidden" bind:this={historyHolder} id="test">
+	<div class="playing-holder ">
+		<div class="ledger-scroll-view playing-row  bg-slate-800 max-h-[40rem]">
+			<div class="overflow-hidden fade-out" bind:this={historyHolder} id="test">
 				<History />
 			</div>
 		</div>
-		<div class="playing-row ledger-scroll-view">
+		<div class="playing-row w-1/2">
 			<div>
 				<button
 					on:click={() => {
@@ -82,7 +82,7 @@
 				>
 			</div>
 			<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
-			<div class="overflow-hidden border">
+			<div class="overflow-hidden bg-slate-800">
 				<PlayersList {newPlayer} {buyIn} {cashOut} />
 			</div>
 		</div>
@@ -95,31 +95,35 @@
 <AdminModal bind:visible={showAdminModal} />
 
 <style>
+
+.fade-out{
+		-webkit-mask-image: linear-gradient(0, #000000 60%, transparent);
+
+	}
 	.playing-holder {
-		box-sizing: border-box;
 		display: flex;
+		flex-direction: row;
 		height: 100%;
-		justify-content: space-between;
 	}
 
 	.overflow-hidden {
 		justify-content: flex-end;
 		overflow: auto;
 		overflow-x: hidden;
+
 	}
 
 	.ledger-scroll-view {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-	}
 
-	.border {
-		border: 2px solid black;
 	}
 
 	.playing-row {
 		flex-grow: 1;
 		margin: 1rem;
+	}
+	.playing-row:before{
 	}
 </style>
