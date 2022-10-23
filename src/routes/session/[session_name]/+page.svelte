@@ -68,8 +68,8 @@
 		{time.toLocaleTimeString()}
 	</div>
 	<div class="playing-holder ">
-		<div class="ledger-scroll-view playing-row  bg-slate-800 max-h-[40rem]">
-			<div class="overflow-hidden fade-out" bind:this={historyHolder} id="test">
+		<div class="ledger-scroll-view playing-row fade-out bg-slate-800 max-h-[40rem]">
+			<div class="overflow-hidden " bind:this={historyHolder} id="test">
 				<History />
 			</div>
 		</div>
@@ -96,8 +96,8 @@
 
 <style>
 
-.fade-out{
-		-webkit-mask-image: linear-gradient(0, #000000 60%, transparent);
+	.fade-out{
+		-webkit-mask-image: linear-gradient(0, #000000 80%, transparent);
 
 	}
 	.playing-holder {
