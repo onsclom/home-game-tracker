@@ -54,7 +54,7 @@
 	onMount(() => {
 		const interval = setInterval(() => {
 			time = new Date();
-		}, 500);
+		}, 1000);
 
 		return () => {
 			clearInterval(interval);
@@ -95,10 +95,8 @@
 <AdminModal bind:visible={showAdminModal} />
 
 <style>
-
-	.fade-out{
+	.fade-out {
 		-webkit-mask-image: linear-gradient(0, #000000 80%, transparent);
-
 	}
 	.playing-holder {
 		display: flex;
@@ -110,20 +108,18 @@
 		justify-content: flex-end;
 		overflow: auto;
 		overflow-x: hidden;
-
 	}
 
 	.ledger-scroll-view {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-
 	}
 
 	.playing-row {
 		flex-grow: 1;
 		margin: 1rem;
 	}
-	.playing-row:before{
+	.playing-row:before {
 	}
 </style>
