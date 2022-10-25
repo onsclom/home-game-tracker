@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { sessionData } from '$lib/stores';
+	import {flip} from 'svelte/animate'
+	import {fly} from 'svelte/transition'
 </script>
 
-<div class="event-holder">
-	{#each $sessionData.ledger as event}
-		<div class="entry">
+<div class="">
+	{#each $sessionData.ledger as event, i (event)}
+		<div class="entry" animate:flip="{{ duration: 300 }}" in:fly='{{x: -200, duration: 400}}' >
 			{#if event.type == 'buy in' || event.type == 'cash out'}
 				<b>{event.name}</b>
 				<b class={event.type.split(' ')[0]}>{event.type == 'buy in' ? 'bought in' : 'cashed out'}</b
@@ -21,12 +23,14 @@
 </div>
 
 <style>
+
+
 	.buy {
-		color: #800;
+		@apply text-red-500
 	}
 
 	.cash {
-		color: #060;
+		@apply text-emerald-500
 	}
 
 	.entry {

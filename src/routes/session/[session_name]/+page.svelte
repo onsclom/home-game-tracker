@@ -4,11 +4,13 @@
 	import BuyInModal from '$lib/BuyInModal.svelte';
 	import AdminModal from '$lib/AdminModal.svelte';
 	import NewPlayerModal from '$lib/NewPlayerModal.svelte';
+	import { fade } from 'svelte/transition';
 	import CashOutModal from '$lib/CashOutModal.svelte';
 	import { page } from '$app/stores';
 	import { sessionData, tableSum } from '$lib/stores';
-	import { onDestroy, tick } from 'svelte';
+	import { tick } from 'svelte';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	if (browser) {
 		$sessionData = JSON.parse(localStorage[$page.params.session_name]);
@@ -43,48 +45,46 @@
 		showCashOutModal = true;
 	}
 
+	let time = new Date();
+
 	function newPlayer() {
 		showNewPlayerModal = true;
 	}
 
-	let date: Date = new Date();
-	let interval = setInterval(() => {
-		date = new Date();
-	}, 1000);
-	onDestroy(() => {
-		clearInterval(interval);
+	onMount(() => {
+		const interval = setInterval(() => {
+			time = new Date();
+		}, 1000);
+
+		return () => {
+			clearInterval(interval);
+		};
 	});
 </script>
 
-<div class="playing-holder">
-	<div class="ledger-scroll-view playing-row ">
-		<h2>
-			{$sessionData.name} -
-			{date.toLocaleTimeString('en-us', {
-				hour: 'numeric',
-				minute: 'numeric',
-				second: 'numeric',
-				hour12: true
-			})}
-		</h2>
-		<div class="overflow-hidden border" bind:this={historyHolder} id="test">
-			<History />
-		</div>
+<div in:fade={{ delay: 250, duration: 250 }} out:fade={{ duration: 250 }} class="">
+	<a href="/" class="text-2xl underline"> Home </a>
+	<div class="font-thin italic tracking-widest text-3xl">
+		{time.toLocaleTimeString()}
 	</div>
-	<div class="playing-row ledger-scroll-view">
-		<div>
-			<h2>
-				<b>${$tableSum.toFixed(2)}</b> <span>on table</span>
+	<div class="playing-holder ">
+		<div class="ledger-scroll-view playing-row fade-out bg-slate-800 max-h-[40rem]">
+			<div class="overflow-hidden " bind:this={historyHolder} id="test">
+				<History />
+			</div>
+		</div>
+		<div class="playing-row w-1/2">
+			<div>
 				<button
-					style="float: right;"
 					on:click={() => {
 						showAdminModal = true;
 					}}>admin panel</button
 				>
-			</h2>
-		</div>
-		<div class="overflow-hidden border">
-			<PlayersList {newPlayer} {buyIn} {cashOut} />
+			</div>
+			<h2><b>${$tableSum.toFixed(2)}</b> <span>on table</span></h2>
+			<div class="overflow-hidden bg-slate-800">
+				<PlayersList {newPlayer} {buyIn} {cashOut} />
+			</div>
 		</div>
 	</div>
 </div>
@@ -95,18 +95,17 @@
 <AdminModal bind:visible={showAdminModal} />
 
 <style>
+	.fade-out {
+		-webkit-mask-image: linear-gradient(0, #000000 80%, transparent);
+	}
 	.playing-holder {
-		box-sizing: border-box;
 		display: flex;
+		flex-direction: row;
 		height: 100%;
-		justify-content: space-between;
-		padding: 0 0.25rem;
-
-		/* flex-direction: column; */
 	}
 
 	.overflow-hidden {
-		justify-content: end;
+		justify-content: flex-end;
 		overflow: auto;
 		overflow-x: hidden;
 	}
@@ -114,32 +113,13 @@
 	.ledger-scroll-view {
 		display: flex;
 		flex-direction: column;
-		justify-content: end;
-	}
-
-	.border {
-		border: 2px solid black;
+		justify-content: flex-end;
 	}
 
 	.playing-row {
 		flex-grow: 1;
-		padding: 0.25rem;
-		display: flex;
-		justify-content: space-between;
-		box-sizing: border-box;
+		margin: 1rem;
 	}
-
-	h2 {
-		margin: 0.2rem 0;
-	}
-
-	@media only screen and (max-width: 600px) {
-		.playing-holder {
-			flex-direction: column;
-		}
-
-		.playing-row {
-			max-height: 50%;
-		}
+	.playing-row:before {
 	}
 </style>

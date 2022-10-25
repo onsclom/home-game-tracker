@@ -31,54 +31,63 @@
 	}
 </script>
 
-<div class="mainContainer">
-	<button on:click={newPlayer}>+ new player</button>
+<div class="p-4">
+	<button class='py-4 ' on:click={newPlayer}>+ new player</button>
 	{#if $playersWithChips.length > 0}
-		<p style="text-align: center;"><b>with chips:</b></p>
+		<p><b class='italic text-slate-400 '>with chips:</b></p>
 	{/if}
 	{#each $playersWithChips as player}
-		<div class="player-div">
-			{$playersSitting.includes(player) ? '' : '🧍 '}<b>{player}</b>
-			(<PlayerEquation {player} />)
-			<br />
+		<div class="flex flex-row space-x-4">
+			<div class="w-3/6 flex flex-row">
+				<b class='pr-5'>{player}</b> {$playersSitting.includes(player) ? '' : '🧍 '}
+				(<PlayerEquation {player} />)
+			</div>
+			
 			{#if $playersSitting.includes(player)}
 				<button
+					class='button'
 					on:click={() => {
 						standUp(player);
 					}}>stand</button
 				>
 			{:else}
 				<button
+					class='button'
 					on:click={() => {
 						sitDown(player);
 					}}>sit</button
 				>
 			{/if}
 			<button
-				on:click={() => {
+					class='button'
+					on:click={() => {
 					stacked(player);
 				}}>stacked</button
 			>
 			<button
-				on:click={() => {
+					class='button'
+					on:click={() => {
 					buyIn(player);
 				}}>buy in</button
 			>
 			<button
-				on:click={() => {
+					class='button'
+					on:click={() => {
 					cashOut(player);
 				}}>cash out</button
 			>
 		</div>
 	{/each}
 	{#if $playerNames.filter((player) => !$playersWithChips.includes(player)).length > 0}
-		<p style="text-align: center;"><b>without chips:</b></p>
+		<p class='pt-5'><b class='italic text-slate-400 '>without chips:</b></p>
 	{/if}
 	{#each $playerNames.filter((player) => !$playersWithChips.includes(player)) as player}
-		<div class="player-div">
-			<b>{player}</b>
-			(<PlayerEquation {player} />)
-			<br />
+		<div class="flex flex-row space-x-4">
+			<div class="w-3/6 flex flex-row">
+				<b class='pr-5'>{player}</b>
+				(<PlayerEquation {player} />)
+				
+			</div>
 			<button
 				on:click={() => {
 					buyIn(player);
@@ -89,15 +98,7 @@
 </div>
 
 <style>
-	.player-div {
-		margin: 0.3rem;
-	}
-
-	.mainContainer {
-		padding: 0.3rem;
-	}
-
-	p {
-		margin: 0.3rem;
+	.button{
+		min-width: 5rem;
 	}
 </style>
