@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { sessionNames } from '$lib/stores';
-	import { fade } from 'svelte/transition';
 	import RightArrow from '$lib/RightArrow.svelte';
 </script>
 
-<main
-	in:fade={{ delay: 250, duration: 250 }}
-	out:fade={{ duration: 250 }}
-	class="p-10  flex flex-col"
->
+<div class="p-10 flex flex-col ">
 	<h1>home game tracker</h1>
 
 	<span class="text-slate-400"
@@ -45,7 +40,7 @@
 			{/each}
 		</ul>
 	</div>
-</main>
+</div>
 
 <style>
 	h1 {

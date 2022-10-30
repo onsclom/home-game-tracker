@@ -48,6 +48,32 @@
     }
 
     button {
-		@apply bg-transparent hover:bg-slate-300/20 transition-colors text-slate-100 font-semibold hover:border-transparent rounded flex flex-row max-w-fit;
+		@apply bg-transparent hover:bg-slate-300/20 transition-colors text-slate-100 font-semibold hover:border-transparent rounded;
         
     }
+
+    body {
+        margin: 0;
+    }
+
+    	/* ===== Scrollbar CSS ===== */
+	/* Firefox */
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: #cbd5e1 #1e293b;
+	}
+
+	/* Chrome, Edge, and Safari */
+	*::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	*::-webkit-scrollbar-track {
+		background: none;
+	}
+
+	*::-webkit-scrollbar-thumb {
+        @apply bg-slate-300;
+		border-radius: 10px;
+		border: 3px inset none;
+	}

@@ -3,7 +3,6 @@
 	import { sessionData, sessionNames } from '$lib/stores';
 	import NewPlayers from '$lib/NewPlayers.svelte';
 	import RightArrow from '$lib/RightArrow.svelte';
-	import { fade } from 'svelte/transition';
 	let allPlayers: string[] = [];
 	let startBuyin = 20;
 	let sessionNameInput = '';
@@ -29,18 +28,13 @@
 	}
 </script>
 
-<div
-	in:fade={{ delay: 250, duration: 250 }}
-	out:fade={{ duration: 250 }}
-	class="grid grid-flow-row sm:grid-flow-col justify-between max-w-full min-w-fit"
->
+<div class="flex flex-col lg:flex-row lg:justify-between">
 	<form
 		class="p-5"
 		on:submit|preventDefault={startSession}
 		on:keypress={(e) => {
 			if (e.code === 'Enter') {
 				e.preventDefault();
-				e.currentTarget.value;
 				return false;
 			}
 		}}
@@ -97,7 +91,7 @@
 		</h1>
 		<div class="flex flex-col content-end">
 			<h2 class="player-title">Current Players</h2>
-			<NewPlayers bind:allPlayers bind:startBuyin />
+			<NewPlayers bind:allPlayers />
 		</div>
 	</div>
 </div>

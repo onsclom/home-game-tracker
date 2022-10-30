@@ -25,16 +25,17 @@
 <Modal bind:visible>
 	<h2>buy in for {selectedPlayer}</h2>
 	<form on:submit|preventDefault={processBuyIn}>
-		<div class='input-wrapper'>
+		<div class="input-wrapper">
 			<input
-			class='input'
-			type="number"
-			inputmode="decimal"
-			id="existingBuyinAmount"
-			step="0.01"
-			bind:value={amount}
+				placeholder="0"
+				class="input"
+				type="number"
+				inputmode="decimal"
+				id="existingBuyinAmount"
+				step="0.01"
+				bind:value={amount}
 			/>
-			<label class='input-label bg-slate-800' for="existingBuyinAmount">buy in amount:</label>
+			<label class="input-label bg-slate-800" for="existingBuyinAmount">buy in amount:</label>
 		</div>
 		<input disabled={!amount} type="submit" value="enter" />
 	</form>
