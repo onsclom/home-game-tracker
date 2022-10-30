@@ -26,11 +26,11 @@
 <Modal bind:visible>
 	<h2>cash out for {selectedPlayer}</h2>
 	<form on:submit|preventDefault={processCashOut}>
-		<div>
-			<label for="cashInAmount">cash out amount:</label>
-			<input type="number" inputmode="decimal" step="0.01" id="cashInAmount" bind:value={amount} />
+		<div class='input-wrapper'>
+			<input class='input' type="number" inputmode="decimal" step="0.01" id="cashInAmount" bind:value={amount} />
+			<label class='input-label bg-slate-800' for="cashInAmount">cash out amount:</label>
 		</div>
-		<input disabled={!amount} type="submit" value="enter cash out" />
+		<button disabled={!amount}>Cash out </button>
 	</form>
 </Modal>
 
